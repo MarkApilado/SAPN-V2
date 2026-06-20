@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Service Appointment</title>
+
+  <style>
+
+    :root {
+
+      --suzuki-blue: #004ea8;
+
+      --suzuki-red: #e60012;
+
+      --light-gray: #f5f7fa;
+
+      --border-gray: #ddd;
+
+    }
+
+
+
+    body {
+
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+      background-color: var(--light-gray);
+
+      color: #1b1b1b;
+
+      margin: 0;
+
+      padding: 0;
+
+    }
+
+
+
+    header {
+
+      background-color: var(--suzuki-blue);
+
+      color: white;
+
+      text-align: center;
+
+      padding: 1.2rem;
+
+      font-size: 1.6rem;
+
+      letter-spacing: 1px;
+
+      font-weight: 600;
+
+      border-bottom: 4px solid var(--suzuki-red);
+
+    }
+
+
+
+    #currentDate {
+
+      text-align: center;
+
+      margin-top: 0.5rem;
+
+      font-size: 1rem;
+
+      color: #333;
+
+    }
+
+
+
+    main {
+
+      max-width: 1200px;
+
+      margin: 2rem auto;
+
+      background: white;
+
+      border-radius: 12px;
+
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+      padding: 1.5rem;
+
+    }
+
+
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+      text-align: center;
+
+    }
+
+
+
+    th, td {
+
+      border-bottom: 1px solid var(--border-gray);
+
+      padding: 0.75rem;
+
+      vertical-align: middle;
+
+    }
+
+
+
+    th {
+
+      background-color: var(--suzuki-blue);
+
+      color: white;
+
+      font-weight: 500;
+
+      text-transform: uppercase;
+
+      font-size: 0.9rem;
+
+    }
+
+
+
+    tr:hover {
+
+      background-color: #f0f6ff;
+
+    }
+
+
+
+    td[contenteditable="true"] {
+
+      background-color: #f9fbff;
+
+      border-radius: 4px;
+
+      outline: none;
+
+      cursor: text;
+
+    }
+
+
+
+    select, input[type="number"], input[type="time"] {
+
+      padding: 0.4rem;
+
+      border: 1px solid #ccc;
+
+      border-radius: 4px;
+
+      background-color: #fff;
+
+      font-size: 0.9rem;
+
+    }
+
+
+
+    .controls {
+
+      margin-top: 1.2rem;
+
+      display: flex;
+
+      justify-content: flex-end;
+
+      gap: 0.5rem;
+
+    }
+
+
+
+    button {
+
+      background-color: var(--suzuki-blue);
+
+      color: white;
+
+      border: none;
+
+      padding: 0.6rem 1rem;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      font-size: 0.9rem;
+
+      transition: background 0.2s ease, transform 0.1s ease;
+
+    }
+
+
+
+    button:hover {
+
+      background-color: var(--suzuki-red);
+
+      transform: scale(1.03);
+
+    }
+
+
+
+    footer {
+
+      text-align: center;
+
+      color: #777;
+
+      font-size: 0.85rem;
+
+      margin-top: 2rem;
+
+    }
+
+
+
+    @media print {
+
+      body { background: white; }
+
+      main { box-shadow: none; border: none; }
+
+      .controls, footer { display: none; }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>Service Appointment</header>
+
+  <div id="currentDate"></div>
+
+
+
+  <main>
+
+    <table id="scheduleTable">
+
+      <thead>
+
+        <tr>
+
+          <th>Select</th>
+
+          <th>Queue No.</th>
+
+          <th>Appointment Time</th>
+
+          <th>Client Name</th>
+
+          <th>CS/Plate No.</th>
+
+          <th>Vehicle Model</th>
+
+          <th>Service Type</th>
+
+          <th>Job Status</th>
+
+          <th>Bay Number</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr>
+
+          <td><input type="checkbox" class="rowSelect"></td>
+
+          <td contenteditable="true"></td>
+
+          <td><input type="time" step="60"></td>
+
+          <td contenteditable="true"></td>
+
+          <td contenteditable="true"></td>
+
+          <td contenteditable="true"></td>
+
+          <td>
+
+            <select>
+
+              <option>PMS</option>
+
+              <option>General Job</option>
+
+              <option>BRP</option>
+
+              <option>Warranty</option>
+
+              <option>Check-up</option>
+
+            </select>
+
+          </td>
+
+          <td>
+
+            <select>
+
+              <option>Waiting For Client</option>
+
+              <option>On-Going Checklist</option>
+
+              <option>On-Going PMS</option>
+
+              <option>On-Going GJ</option>
+
+              <option>On-Going BRP</option>
+
+              <option>Ready for Send Off</option>
+
+              <option>Done</option>
+
+              <option>Cancelled</option>
+
+              <option>Rescheduled</option>
+
+            </select>
+
+          </td>
+
+          <td>
+
+            <select>
+
+              <option>1</option>
+
+              <option>2</option>
+
+              <option>R/D</option>
+
+            </select>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+
+
+    <div class="controls">
+
+      <div id="toggleCircle" onclick="toggleControls()" style="width:14px;height:14px;border-radius:50%;background-color:green;cursor:pointer;border:1px solid #333;"></div>
+
+      <button id="addBtn" onclick="addRow()">Add Row</button>
+
+      <button id="removeSelectedBtn" onclick="removeSelectedRows()">Remove Selected</button>
+
+      <button id="removeAllBtn" onclick="removeAllRows()">Remove All</button>
+
+    </div>
+
+  </main>
+
+
+
+  <footer>© 2025 - 2026 Suzuki Auto Pangasinan - Aftersales Service Department  |ASD|  Schedule Board</footer>
+
+
+
+  <script>
+
+    document.getElementById('currentDate').textContent = "Date: " + new Date().toLocaleDateString();
+
+
+
+    function addRow() {
+
+      const tableBody = document.querySelector('#scheduleTable tbody');
+
+      const newRow = tableBody.rows[0].cloneNode(true);
+
+
+
+      newRow.querySelectorAll('td').forEach(td => {
+
+        const checkbox = td.querySelector('.rowSelect');
+
+        if(checkbox) checkbox.checked = false;
+
+        if(td.hasAttribute('contenteditable')) td.textContent = '';
+
+        const select = td.querySelector('select');
+
+        if(select) select.selectedIndex = 0;
+
+        const timeInput = td.querySelector('input[type="time"]');
+
+        if(timeInput) timeInput.value = '';
+
+      });
+
+
+
+      tableBody.appendChild(newRow);
+
+    }
+
+
+
+    function removeSelectedRows() {
+
+      const tableBody = document.querySelector('#scheduleTable tbody');
+
+      const rows = tableBody.querySelectorAll('tr');
+
+      let removed = false;
+
+      rows.forEach(row => {
+
+        const checkbox = row.querySelector('.rowSelect');
+
+        if(checkbox.checked) {
+
+          tableBody.removeChild(row);
+
+          removed = true;
+
+        }
+
+      });
+
+      if(!removed) alert("Select at least one row to remove.");
+
+    }
+
+
+
+    function removeAllRows() {
+
+      const tableBody = document.querySelector('#scheduleTable tbody');
+
+      tableBody.innerHTML = '';
+
+    }
+
+
+
+    let controlsHidden = false;
+
+
+
+    function toggleControls() {
+
+      controlsHidden = !controlsHidden;
+
+
+
+      document.getElementById("addBtn").style.display = controlsHidden ? "none" : "inline-block";
+
+      document.getElementById("removeSelectedBtn").style.display = controlsHidden ? "none" : "inline-block";
+
+      document.getElementById("removeAllBtn").style.display = controlsHidden ? "none" : "inline-block";
+
+
+
+      document.getElementById("toggleCircle").style.backgroundColor = controlsHidden ? "red" : "green";
+
+    }
+
+
+
+    let dataChanged = false;
+
+
+
+    document.addEventListener("input", () => {
+
+      dataChanged = true;
+
+    });
+
+
+
+    window.addEventListener("beforeunload", function (e) {
+
+      if (dataChanged) {
+
+        e.preventDefault();
+
+        e.returnValue = "Are you sure you want to leave or refresh this page? Unsaved data will be lost.";
+
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html>
